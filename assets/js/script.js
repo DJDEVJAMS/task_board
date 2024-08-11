@@ -34,11 +34,39 @@ function renderTaskList() {
       const statusId = task.status === 'to-do' ? 'todo-cards' : `${task.status}-cards`;
       $(`#${statusId}`).append(taskCard);
     });
+
+  // Make tasks draggable
+  $('.card').draggable({
+    revert: "invalid", // Task reverts to original position if not dropped into a valid lane
+    cursor: "move"
+  });
+
+  // Attach event listeners to delete buttons
+  $('.delete-task').click(handleDeleteTask);
 }
 
 // Todo: create a function to handle adding a new task
 function handleAddTask(event){
+    event.preventDefault();
 
+    const title = $('#taskTitle').val();
+    const description = $('#taskDescription').val();
+    const status = $('#taskStatus').val();
+    const dueDate = $('#taskDueDate').val();
+  
+    const task = {
+      id: generateTaskId(),
+      title: title,
+      description: description,
+      status: status,
+      dueDate: dueDate
+    };
+  
+    taskList.push(task);
+    localStorage.setItem("tasks", JSON.stringify(taskList));
+  
+    renderTaskList();
+    $('#formModal').modal('hide'); // Close the modal  
 }
 
 // Todo: create a function to handle deleting a task
