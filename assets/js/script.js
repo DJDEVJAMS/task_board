@@ -1,6 +1,6 @@
 // Retrieve tasks and nextId from localStorage, or initialize empty arrays if they don't exist
-let taskList = JSON.parse(localStorage.getItem("tasks"));
-let nextId = JSON.parse(localStorage.getItem("nextId"));
+let taskList = JSON.parse(localStorage.getItem("tasks")) ?? [];
+let nextId = JSON.parse(localStorage.getItem("nextId")) ?? 1;
 
 // Function to generate a unique task id
 function generateTaskId() {
